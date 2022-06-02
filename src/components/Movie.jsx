@@ -1,22 +1,23 @@
 import placeholder from "../images/placeholder.jpg";
 
-const Movie = () => {
+const Movie = ({ movie }) => {
+  console.log(movie);
+  const { title, overview, vote_average, poster_path } = movie;
+
   return (
     <div className="movie">
       <img
-        src="https://image.tmdb.org/t/p/w500/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg"
+        src={
+          poster_path === null
+            ? placeholder
+            : `https://image.tmdb.org/t/p/w500${poster_path}`
+        }
         alt="Movie poster"
       />
       <div className="overlay">
-        <div className="title">Fight Club</div>
-        <div className="rating">8.4/10</div>
-        <div className="plot">
-          A ticking-time-bomb insomniac and a slippery soap salesman channel
-          primal male aggression into a shocking new form of therapy. Their
-          concept catches on, with underground "fight clubs" forming in every
-          town, until an eccentric gets in the way and ignites an out-of-control
-          spiral toward oblivion.
-        </div>
+        <div className="title">{title}</div>
+        <div className="rating">{vote_average}/10</div>
+        <div className="plot">{overview}</div>
         <div data-toggled="true" className="listToggle">
           <div>
             <i className="far fa-heart"></i>
