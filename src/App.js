@@ -14,10 +14,14 @@ function App() {
     searchMovies("fight club").then((movies) => setMovies(movies));
   }, []);
 
+  const handleSearch = (query) => {
+    searchMovies(query).then((movies) => setMovies(movies));
+  };
+
   return (
     <>
       <Header>
-        <Form />
+        <Form searchMovies={handleSearch} />
       </Header>
       <MovieList movies={movies} />
     </>
