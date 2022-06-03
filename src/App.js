@@ -8,6 +8,7 @@ import searchMovies from "./services/movie-API";
 function App() {
   // create the state the holds the movies
   const [movies, setMovies] = useState([]);
+  const [likedMovies, setLikedMovies] = useState([]);
 
   // create the useEffect that populates the movies from the API
   useEffect(() => {
@@ -18,12 +19,27 @@ function App() {
     searchMovies(query).then((movies) => setMovies(movies));
   };
 
+  const handleToggleLikeMovie = (id) => {
+    // add or remove the movie id to likedMovies
+    setLikedMovies((prevState) => {
+      if (prevState.findIndex((movieId) => movieId === id) === -1) {
+        return [...prevState, id];
+      }
+
+      return prevState.filter((movieId) => movieId !== id);
+    });
+  };
+
   return (
     <>
       <Header>
         <Form searchMovies={handleSearch} />
       </Header>
-      <MovieList movies={movies} />
+      <MovieList
+        movies={movies}
+        likedMovies={likedMovies}
+        toggleLikeMovie={handleToggleLikeMovie}
+      />
     </>
   );
 }
